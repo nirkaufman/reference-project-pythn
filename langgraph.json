@@ -4,8 +4,11 @@
   "graphs": {
     "agent": "./src/agent/start.py:agent",
     "models": "./src/module_1/1.1_models.py:models",
-    "prompts": "./src/module_1/2.2_prompt.py:prompt",
-    "structure": "./src/module_1/2.3_structure.py:structure"
+    "prompts": "./src/module_1/1.2_prompt.py:prompt",
+    "structure": "./src/module_1/1.3_structure.py:structure",
+    "tools": "./src/module_1/1.4_tools.py:tools",
+    "memory": "./src/module_1/1.5_memory.py:memory",
+    "multimodal": "./src/module_1/1.6_multimodal.py:multimodal"
   },
   "env": ".env",
   "image_distro": "wolfi"
