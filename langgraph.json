@@ -2,7 +2,10 @@
   "$schema": "https://langgra.ph/schema.json",
   "dependencies": ["."],
   "graphs": {
-    "agent": "./src/agent/start.py:agent"
+    "agent": "./src/agent/start.py:agent",
+    "models": "./src/module_1/1.1_models.py:models",
+    "prompts": "./src/module_1/2.2_prompt.py:prompt",
+    "structure": "./src/module_1/2.3_structure.py:structure"
   },
   "env": ".env",
   "image_distro": "wolfi"

@@ -1,0 +1,9 @@
+from langchain.chat_models import init_chat_model
+from langchain.agents import create_agent
+
+model = init_chat_model(model='gpt-5-nano',
+                        temperature=1,
+                        max_tokens=1000,
+                        timeout=6000)
+
+models = create_agent(model)
