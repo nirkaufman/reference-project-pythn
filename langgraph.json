@@ -4,12 +4,15 @@
   "graphs": {
     "agent": "./src/agent/start.py:agent",
     "models": "./src/module_1/1.1_models.py:models",
-    "prompts": "./src/module_1/1.2_prompt.py:prompt",
-    "structure": "./src/module_1/1.3_structure.py:structure",
-    "tools": "./src/module_1/1.4_tools.py:tools",
-    "memory": "./src/module_1/1.5_memory.py:memory",
-    "multimodal": "./src/module_1/1.6_multimodal.py:multimodal",
-    "left_over_meal_agent": "./src/projects/left_over_meal_agent/agent.py:agent"
+    "prompts": "./src/modules/module_1/1.2_prompt.py:prompt",
+    "structure": "./src/modules/module_1/1.3_structure.py:structure",
+    "tools": "./src/modules/module_1/1.4_tools.py:tools",
+    "memory": "./src/modules/module_1/1.5_memory.py:memory",
+    "multimodal": "./src/modules/module_1/1.6_multimodal.py:multimodal",
+    "left_over_meal_agent": "./src/projects/left_over_meal_agent/agent.py:agent",
+    "dynamic_model": "./src/modules/module_2/2.3_dynamic/2.3.1_dynamic_model.py:dynamic_model",
+    "dynamic_tools": "./src/modules/module_2/2.3_dynamic/2.3.2_dynamic_tools.py:dynamic_tools",
+    "dynamic_system": "./src/modules/module_2/2.3_dynamic/2.3.3_dynamic_system.py:dynamic_system"
   },
   "env": ".env",
   "image_distro": "wolfi"
