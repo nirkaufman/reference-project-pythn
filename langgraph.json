@@ -15,7 +15,11 @@
     "custom": "./src/modules/module_2/2.1_middleware/2.1.3_custom.py:custom",
     "runtime_prompt": "./src/modules/module_2/2.3_dynamic/2.3.1_dynamic_prompts/2.3.1.1_runtime_system.py:runtime_prompt",
     "state_prompt": "./src/modules/module_2/2.3_dynamic/2.3.1_dynamic_prompts/2.3.1.2_state_system.py:state_prompt",
-    "store_prompt": "./src/modules/module_2/2.3_dynamic/2.3.1_dynamic_prompts/2.3.1.3_store_system.py:store_prompt"
+    "store_prompt": "./src/modules/module_2/2.3_dynamic/2.3.1_dynamic_prompts/2.3.1.3_store_system.py:store_prompt",
+    "state_model": "./src/modules/module_2/2.3_dynamic/2.3.2_dynamic_model/2.3.2.1_state_model.py:state_model",
+    "runtime_model": "./src/modules/module_2/2.3_dynamic/2.3.2_dynamic_model/2.3.2.2_runtime_model.py:runtime_model",
+    "runtime_tools": "./src/modules/module_2/2.3_dynamic/2.3.3_dynamic_tools/2.3.3.1_runtime_tools.py:runtime_tools",
+    "state_tools": "./src/modules/module_2/2.3_dynamic/2.3.3_dynamic_tools/2.3.3.2_state_tools.py:state_tools"
   },
   "env": ".env",
   "image_distro": "wolfi"

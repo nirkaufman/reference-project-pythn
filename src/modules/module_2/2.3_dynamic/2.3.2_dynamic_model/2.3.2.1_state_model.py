@@ -8,8 +8,9 @@ from typing import Callable
 simple_model = init_chat_model(model='gpt-5-nano')
 complex_model = init_chat_model(model='gpt-4o')
 
+# run on each model call and choose the appropriate model
 @wrap_model_call
-async def choose_model_dynamically(
+async def state_based_model(
         request: ModelRequest,
         handler: Callable[[ModelRequest], ModelResponse],
 ) -> ModelResponse:
@@ -23,5 +24,5 @@ async def choose_model_dynamically(
     return await handler(request.override(model=chosen_model))
 
 
-dynamic_model = create_agent(simple_model,
-                             middleware=[choose_model_dynamically])
+state_model = create_agent(simple_model,
+                           middleware=[state_based_model])
