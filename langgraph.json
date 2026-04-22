@@ -10,12 +10,12 @@
     "memory": "./src/modules/module_1/1.5_memory.py:memory",
     "multimodal": "./src/modules/module_1/1.6_multimodal.py:multimodal",
     "left_over_meal_agent": "./src/projects/left_over_meal_agent/agent.py:agent",
-    "dynamic_model": "./src/modules/module_2/2.3_dynamic/2.3.1_dynamic_model.py:dynamic_model",
-    "dynamic_tools": "./src/modules/module_2/2.3_dynamic/2.3.2_dynamic_tools.py:dynamic_tools",
-    "dynamic_system": "./src/modules/module_2/2.3_dynamic/2.3.3_dynamic_system.py:dynamic_system",
     "pll_detection": "./src/modules/module_2/2.1_middleware/2.1.1_pll_detection.py:pll_detection",
     "summarization": "./src/modules/module_2/2.1_middleware/2.1.2_summary.py:summarization",
-    "custom": "./src/modules/module_2/2.1_middleware/2.1.3_custom.py:custom"
+    "custom": "./src/modules/module_2/2.1_middleware/2.1.3_custom.py:custom",
+    "runtime_prompt": "./src/modules/module_2/2.3_dynamic/2.3.1_dynamic_prompts/2.3.1.1_runtime_system.py:runtime_prompt",
+    "state_prompt": "./src/modules/module_2/2.3_dynamic/2.3.1_dynamic_prompts/2.3.1.2_state_system.py:state_prompt",
+    "store_prompt": "./src/modules/module_2/2.3_dynamic/2.3.1_dynamic_prompts/2.3.1.3_store_system.py:store_prompt"
   },
   "env": ".env",
   "image_distro": "wolfi"
