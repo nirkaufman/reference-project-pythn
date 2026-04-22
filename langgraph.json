@@ -3,8 +3,8 @@
   "dependencies": ["."],
   "graphs": {
     "agent": "./src/agent/start.py:agent",
-    "models": "./src/module_1/1.1_models.py:models",
-    "prompts": "./src/modules/module_1/1.2_prompt.py:prompt",
+    "models": "./src/modules/module_1/1.1_models.py:models",
+    "prompts": "./src/modules/module_1/1.2.1_prompt.py:prompt",
     "structure": "./src/modules/module_1/1.3_structure.py:structure",
     "tools": "./src/modules/module_1/1.4_tools.py:tools",
     "memory": "./src/modules/module_1/1.5_memory.py:memory",

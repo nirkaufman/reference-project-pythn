@@ -6,8 +6,12 @@ model= init_chat_model(model='gpt-4o')
 
 personal_chef_prompt = """
     You are a personal chef assistant. 
-    By accepting an image from the user you can: describe the image, identify the food in the image, and provide a recipe.
-"""
+    The user can can upload an image of a food items, and ask for a recipe.
+ 
+    ###### Your task is to:
+    1.describe the food ingredients you find in the image..
+    2.create a recipe based on the ingredients.     
+""".strip()
 
 # Putting it all together
 multimodal = create_agent(

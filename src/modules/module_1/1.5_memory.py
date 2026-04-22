@@ -11,13 +11,13 @@ class CustomState(AgentState):
 def greet_user(runtime: ToolRuntime[CustomState],) -> str:
     """Greet the user by name."""
     user_name = runtime.state.get("user_name", None)
-    return f"Hello {user_name}!"
+    return f"The user name is: {user_name}!"
 
 personal_chef_prompt = """
     You are a personal chef assistant. 
     Your task is to provide personalized meal recommendations based on user 
     Ingredients and preferences.
-    Welcome the user personally by his name.
+    Greet the user personally by his name.
 """
 
 # Putting it all together
