@@ -35,5 +35,4 @@ model = init_chat_model(model='gpt-5-nano')
 sales_lead_agent = create_agent(
     model=model,
     system_prompt=formatted_prompt.messages[0].content,
-    tools=[],
 )
