@@ -22,7 +22,8 @@
     "state_tools": "./src/modules/module_2/2.3_dynamic/2.3.3_dynamic_tools/2.3.3.2_state_tools.py:state_tools",
     "keyword_guardrail": "./src/modules/module_2/2.4_guardrails/2.4.1_filter.py:keyword_guardrail",
     "human_in_the_loop": "./src/modules/module_2/2.5_human_in_the_loop/2.5.1_human_loop.py:human_loop",
-    "prompt_engineering": "./src/modules/module_3/3.4_prompt_engineering/3.4.3_prompt_pull.py:sales_lead_agent"
+    "prompt_engineering": "./src/modules/module_3/3.4_prompt_engineering/3.4.3_prompt_pull.py:sales_lead_agent",
+    "supervisor_agent": "./src/modules/module_3/3.3_multi_agent/3.3.1_sub_agents/3.3.1_supervisor.py:supervisor_agent"
   },
   "env": ".env",
   "image_distro": "wolfi"
