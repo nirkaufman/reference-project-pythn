@@ -24,8 +24,8 @@ class Context:
 
 @wrap_model_call
 def context_based_tools(
-        request: ModelRequest,
-        handler: Callable[[ModelRequest], ModelResponse]
+        request: ModelRequest[Context],
+        handler: Callable[[ModelRequest[Context]], ModelResponse]
 ) -> ModelResponse:
     """Filter tools based on Runtime Context permissions."""
     user_role = request.runtime.context.user_role
@@ -47,4 +47,5 @@ all_tools = [read_file, write_file]
 
 runtime_tools = create_agent(model=model,
                              tools=all_tools,
-                             middleware=[context_based_tools])
+                             middleware=[context_based_tools],
+                             context_schema=Context)

@@ -17,8 +17,8 @@ class Context:
 # Read from Runtime Context: cost tier and environment
 @wrap_model_call
 def context_based_model(
-    request: ModelRequest,
-    handler: Callable[[ModelRequest], ModelResponse]
+    request: ModelRequest[Context],
+    handler: Callable[[ModelRequest[Context]], ModelResponse]
 ) -> ModelResponse:
     cost_tier = request.runtime.context.cost_tier
     environment = request.runtime.context.environment

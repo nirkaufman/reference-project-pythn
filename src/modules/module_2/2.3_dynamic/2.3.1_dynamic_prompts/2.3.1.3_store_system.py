@@ -11,7 +11,7 @@ class Context:
     user_id: str
 
 @dynamic_prompt
-async def store_aware_prompt(request: ModelRequest) -> str:
+async def store_aware_prompt(request: ModelRequest[Context]) -> str:
     user_id = request.runtime.context.user_id
 
     # Read from Store: get user preferences

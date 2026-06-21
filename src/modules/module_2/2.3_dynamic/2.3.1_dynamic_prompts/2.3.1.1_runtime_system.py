@@ -9,7 +9,7 @@ class Context:
     deployment_env: str
 
 @dynamic_prompt
-def runtime_aware_prompt(request: ModelRequest) -> str:
+def runtime_aware_prompt(request: ModelRequest[Context]) -> str:
     # Read from Runtime Context: user role and environment
     user_role = request.runtime.context.user_role
     env = request.runtime.context.deployment_env
