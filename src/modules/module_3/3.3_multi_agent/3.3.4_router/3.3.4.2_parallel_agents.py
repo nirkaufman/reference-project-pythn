@@ -25,13 +25,17 @@ This demo: a product knowledge base with three vertical agents:
 
 from typing import Annotated, Any
 
+from dotenv import load_dotenv
 from langchain.agents import create_agent
 from langchain.chat_models import init_chat_model
-from langchain_core.messages import HumanMessage
+from langchain_core.messages import AIMessage, AnyMessage, HumanMessage
 from langgraph.graph import END, START, StateGraph
+from langgraph.graph.message import add_messages
 from langgraph.types import Send
 from pydantic import BaseModel
 from typing_extensions import TypedDict
+
+load_dotenv()
 
 
 # ---------------------------------------------------------------------------
@@ -39,6 +43,8 @@ from typing_extensions import TypedDict
 # ---------------------------------------------------------------------------
 
 class RouterState(TypedDict):
+    # Enables Studio's chat UI; the latest human message is the query.
+    messages: Annotated[list[AnyMessage], add_messages]
     query: str
     # Each parallel agent appends its answer here.
     # Annotated[list, operator.add] tells LangGraph to merge lists from parallel branches.
@@ -109,6 +115,8 @@ classifier = model.with_structured_output(Classification)
 
 def router(state: RouterState) -> list[Send]:
     """Classify the query and fan out to all relevant agents in parallel."""
+    query = state["messages"][-1].content if state.get("messages") else state["query"]
+
     result = classifier.invoke([
         {"role": "system", "content": (
             "Classify which knowledge sources should answer this query. "
@@ -118,14 +126,14 @@ def router(state: RouterState) -> list[Send]:
             "community = workarounds, tips, known issues, FAQs.\n"
             "Return all that are relevant."
         )},
-        {"role": "user", "content": state["query"]},
+        {"role": "user", "content": query},
     ])
 
     valid_domains = [d for d in result.domains if d in _AGENTS]
 
     # Send dispatches each agent as an independent parallel branch.
     # Each branch receives its own copy of the state.
-    return [Send(f"{domain}_agent", {"query": state["query"], "answers": []}) for domain in valid_domains]
+    return [Send(f"{domain}_agent", {"query": query, "answers": []}) for domain in valid_domains]
 
 
 # ---------------------------------------------------------------------------
@@ -160,10 +168,12 @@ synthesizer = create_agent(
 
 def synthesize(state: RouterState) -> dict:
     """Merge all parallel agent answers into one final response."""
+    query = state["messages"][-1].content if state.get("messages") else state["query"]
     combined = "\n\n".join(state["answers"])
-    prompt = f"Original question: {state['query']}\n\nSource answers:\n{combined}"
+    prompt = f"Original question: {query}\n\nSource answers:\n{combined}"
     result = synthesizer.invoke({"messages": [HumanMessage(content=prompt)]})
-    return {"final_answer": result["messages"][-1].content}
+    final_answer = result["messages"][-1].content
+    return {"final_answer": final_answer, "messages": [AIMessage(content=final_answer)]}
 
 
 # ---------------------------------------------------------------------------
@@ -172,14 +182,15 @@ def synthesize(state: RouterState) -> dict:
 
 graph = StateGraph(RouterState)
 
-graph.add_node("router", router)
 graph.add_node("docs_agent", docs_node)
 graph.add_node("changelog_agent", changelog_node)
 graph.add_node("community_agent", community_node)
 graph.add_node("synthesize", synthesize)
 
-graph.add_edge(START, "router")
-# No explicit edges from router — Send handles the fan-out dynamically.
+# router returns Send objects, so it must be wired as a conditional edge
+# from START rather than a regular node — that's what LangGraph requires
+# to interpret the return value as a fan-out routing decision.
+graph.add_conditional_edges(START, router, ["docs_agent", "changelog_agent", "community_agent"])
 for agent in ("docs_agent", "changelog_agent", "community_agent"):
     graph.add_edge(agent, "synthesize")
 graph.add_edge("synthesize", END)
@@ -189,6 +200,11 @@ parallel_router = graph.compile()
 
 if __name__ == "__main__":
     result = parallel_router.invoke(
-        {"query": "What changed in the latest release and are there known migration issues?", "answers": []}
+        {
+            "messages": [
+                HumanMessage(content="What changed in the latest release and are there known migration issues?")
+            ],
+            "answers": [],
+        }
     )
     print(result["final_answer"])

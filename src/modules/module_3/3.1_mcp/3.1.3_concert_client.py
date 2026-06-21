@@ -34,11 +34,19 @@ async def _load_mcp_context():
     return tools, resources, prompt
 
 
-tools, resources, prompt_messages = asyncio.run(_load_mcp_context())
-
-print(f"Loaded {len(tools)} tool(s) from concert_server: {[t.name for t in tools]}")
-print(f"Loaded resource concerts://catalog:\n{resources[0].as_string()}")
-print(f"Loaded prompt 'concert_assistant':\n{prompt_messages}")
+try:
+    tools, resources, prompt_messages = asyncio.run(_load_mcp_context())
+except Exception as exc:
+    print(
+        f"WARNING: could not reach concert_server ({exc}). "
+        "Start it with `python src/modules/module_3/3.1_mcp/3.1.2_concert_server.py` "
+        "before invoking concert_agent. Loading with no tools for now."
+    )
+    tools, resources, prompt_messages = [], [], None
+else:
+    print(f"Loaded {len(tools)} tool(s) from concert_server: {[t.name for t in tools]}")
+    print(f"Loaded resource concerts://catalog:\n{resources[0].as_string()}")
+    print(f"Loaded prompt 'concert_assistant':\n{prompt_messages}")
 
 model = init_chat_model(model="gpt-4o")
 
